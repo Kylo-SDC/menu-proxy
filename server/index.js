@@ -131,9 +131,9 @@ app.post('/api/reservations', (req, res) => {
 
 
 
-const port = 3043;
+const proxyPort = process.env.proxy_port || 3043;
 
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+app.listen(proxyPort, () => {
+  console.log(`App listening on port ${proxyPort}`);
 });
