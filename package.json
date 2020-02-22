@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1",
+    "newrelic": "^6.4.1",
     "node": "^13.7.0",
     "nodemon": "^2.0.2"
   }
