@@ -9,7 +9,6 @@ app.use(express.static('public'));
 
 app.get('/:restaurantId', (req, res) => {
 
-
   const { restaurantId } = req.params;
   axios.get(`http://localhost:8000/api/restaurant/${restaurantId}`)
     .then((data) => {
