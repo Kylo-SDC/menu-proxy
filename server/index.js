@@ -10,16 +10,18 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-const menuPort = process.env.menu_port || 8000;
-const reviewPort = process.env.review_port || 8001;
-const photoPort = process.env.photo_port || 8002;
-const reservationPort = process.env.reservation_port || 8003;
+const menuUrl = process.env.menuUrl;
+const reviewUrl = process.env.reviewUrl;
+const photoUrl = process.env.photoUrl;
+const reservationUrl = process.env.reservationUrl;
 
+// RESTAURANTS / MENUS //////////////////////////////////////////
+
+// read
 
 app.get('/api/restaurant/:restaurantId', (req, res) => {
-
   const { restaurantId } = req.params;
-  axios.get(`http://localhost:${menuPort}/api/restaurant/${restaurantId}`)
+  axios.get(`${menuUrl}/api/restaurant/${restaurantId}`)
     .then((data) => {
       res.status(200).json(data.data);
     })
@@ -28,10 +30,23 @@ app.get('/api/restaurant/:restaurantId', (req, res) => {
     });
 });
 
+app.get('/api/restaurantTitle/:restaurantId', (req, res) => {
+  const { restaurantId } = req.params;
+  axios.get(`${menuUrl}/api/restaurantTitle/${restaurantId}`)
+    .then((data) => {
+      res.status(200).json(data.data);
+    })
+    .catch(() => {
+      res.status(400).send('error fetching restaurant title');
+    });
+});
+
+// create
+
 app.post('/api/menu/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
   const { menuName, menuDescription } = req.body;
-  axios.post(`http://localhost:${menuPort}/api/menu/${restaurantId}`, { menuName: menuName, menuDescription: menuDescription })
+  axios.post(`${menuUrl}/api/menu/${restaurantId}`, { menuName: menuName, menuDescription: menuDescription })
     .then(() => {
       res.status(200).send('success');
     })
@@ -56,7 +71,7 @@ app.get('/reviews/:restaurantId', (req, res) => {
 
 app.get('/reviews/sort/:id/:sorting/:list', (req, res) => {
   const { id, sorting, list } = req.params;
-  axios.get(`http://localhost:${reviewPort}/reviews/sort/${id}/${sorting}/${list}`)
+  axios.get(`${reviewUrl}/reviews/sort/${id}/${sorting}/${list}`)
     .then((data) => {
       res.status(200).json(data);
     })
@@ -67,7 +82,7 @@ app.get('/reviews/sort/:id/:sorting/:list', (req, res) => {
 
 // create
 app.post('/api/reviews/', (req, res) => {
-  axios.post(`http://localhost:${reviewPort}/api/reviews`, req.body)
+  axios.post(`${reviewUrl}/api/reviews`, req.body)
     .then(() => {
       res.status(200).send('posted');
     })
@@ -82,7 +97,7 @@ app.post('/api/reviews/', (req, res) => {
 
 app.get('/api/photos/:id', (req, res) => {
   const { id } = req.params;
-  axios.get(`http://localhost:${photoPort}/api/photos/${id}`)
+  axios.get(`${photoUrl}/api/photos/${id}`)
     .then((data) => {
       res.status(200).json(data);
     })
@@ -94,7 +109,7 @@ app.get('/api/photos/:id', (req, res) => {
 // create
 
 app.post('/api/reviews', (req, res) => {
-  axios.post(`http://localhost:${photoPort}/api/reviews`, req.body)
+  axios.post(`${photoUrl}/api/reviews`, req.body)
     .then(() => {
       res.status(200).send('posted photo');
     })
@@ -109,7 +124,7 @@ app.post('/api/reviews', (req, res) => {
 
 app.get('/api/reservations/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
-  axios.get(`http://localhost:${reservationPort}/api/reservations/${restaurantId}`)
+  axios.get(`${reservationUrl}/api/reservations/${restaurantId}`)
     .then((data) => {
       res.status(200).json(data);
     })
@@ -121,7 +136,7 @@ app.get('/api/reservations/:restaurantId', (req, res) => {
 
 // create
 app.post('/api/reservations', (req, res) => {
-  axios.post(`http://localhost:${reservationPort}/api/reservations`, req.body)
+  axios.post(`${reservationUrl}/api/reservations`, req.body)
     .then(() => {
       res.status(200).send('successful post');
     })

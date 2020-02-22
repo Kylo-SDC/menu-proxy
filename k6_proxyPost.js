@@ -12,7 +12,7 @@ export let options = {
 };
 
 export default function () {
-  const url = 'http://localhost:3043/menu/9000000/';
+  const url = 'http://localhost:3043/api/menu/9000000/';
   const data = JSON.stringify({ menuName: "space food", menuDescription: "star dust, apple pie, and candy canes" });
   const headers =  { headers: { "Content-Type": "application/json" } };
 
