@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 require('newrelic');
 const express = require('express');
 const axios = require('axios');
