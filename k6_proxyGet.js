@@ -12,7 +12,7 @@ export let options = {
 };
 
 export default function () {
-  const url = 'http://localhost:3043/999999/';
+  const url = 'http://localhost:3043/api/restaurant/999999';
   check(http.get(url), {
     'status is 200': (r) => r.status === 200,
     'transaction time under 2000ms': (r) => r.timings.duration < 2000
