@@ -21,7 +21,7 @@ const reservationUrl = process.env.reservationUrl;
 
 app.get('/api/restaurant/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
-  axios.get(`${menuUrl}/api/restaurant/${restaurantId}`)
+  axios.get(`http://ec2-3-14-67-128.us-east-2.compute.amazonaws.com:8001/api/restaurant/${restaurantId}`)
     .then((data) => {
       res.status(200).json(data.data);
     })
@@ -32,7 +32,7 @@ app.get('/api/restaurant/:restaurantId', (req, res) => {
 
 app.get('/api/restaurantTitle/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
-  axios.get(`${menuUrl}/api/restaurantTitle/${restaurantId}`)
+  axios.get(`http://ec2-3-14-67-128.us-east-2.compute.amazonaws.com:8001/api/restaurantTitle/${restaurantId}`)
     .then((data) => {
       res.status(200).json(data.data);
     })
